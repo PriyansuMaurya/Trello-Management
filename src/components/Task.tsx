@@ -1,10 +1,12 @@
-import { DeleteIcon } from '@chakra-ui/icons';
-import { Box, IconButton, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { useTaskDragAndDrop } from '../hooks/useTaskDragAndDrop';
 import { TaskModel } from '../utils/models';
-import { AutoResizeTextarea } from './AutoResizeTextArea';
+import { Button, Card, Tooltip } from 'antd';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { Input } from 'antd';
+
+const { TextArea } = Input;
 
 type TaskProps = {
   index: number;
@@ -35,57 +37,63 @@ function Task({
     handleDelete(task.id);
   };
 
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <ScaleFade in={true} unmountOnExit>
-      <Box
-        ref={ref}
-        as="div"
-        role="group"
-        position="relative"
-        rounded="lg"
-        w={200}
-        pl={3}
-        pr={7}
-        pt={3}
-        pb={1}
-        boxShadow="xl"
-        cursor="grab"
-        fontWeight="bold"
-        userSelect="none"
-        bgColor={task.color}
-        opacity={isDragging ? 0.5 : 1}
-      >
-        <IconButton
-          position="absolute"
-          top={0}
-          right={0}
-          zIndex={100}
-          aria-label="delete-task"
-          size="md"
-          colorScheme="solid"
-          color={'gray.700'}
-          icon={<DeleteIcon />}
-          opacity={0}
-          _groupHover={{
-            opacity: 1,
+    <Card
+      ref={ref}
+      style={{
+        position: 'relative',
+        width: '200px',
+        paddingLeft: '3px',
+        paddingRight: '7px',
+        paddingTop: '3px',
+        paddingBottom: '1px',
+        marginTop: '10px',
+        boxShadow: 'xl',
+        cursor: 'grab',
+        fontWeight: 'bold',
+        userSelect: 'none',
+        backgroundColor: task.color,
+        opacity: isDragging ? '0.5' : '1',
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <Tooltip title="Remove Item">
+        <Button
+          style={{
+            position: 'absolute',
+            top: 10,
+            right: 10,
+            zIndex: 1,
+            border: 'none',
+            // opacity: 0,
+            backgroundColor: 'transparent',
+            color: hovered ? 'black' : 'transparent',
           }}
+          icon={<RiDeleteBin6Line size={20} />}
           onClick={handleDeleteClick}
         />
-        <AutoResizeTextarea
-          value={task.title}
-          fontWeight="semibold"
-          cursor="inherit"
-          border="none"
-          p={0}
-          resize="none"
-          minH={70}
-          maxH={200}
-          focusBorderColor="none"
-          color="gray.700"
-          onChange={handleTitleChange}
-        />
-      </Box>
-    </ScaleFade>
+      </Tooltip>
+
+      <TextArea
+        style={{
+          fontWeight: "semibold",
+          cursor: "inherit",
+          padding: '0px',
+          margin: '0px',
+          backgroundColor: 'transparent',
+
+        }}
+        bordered={false}
+        value={task.title}
+        placeholder="Enter your software-related task here..."
+        autoSize={{ minRows: 3, maxRows: 5 }}
+        onChange={handleTitleChange}
+      />
+    </Card>
+
   );
 }
 export default memo(Task, (prev, next) => {
@@ -101,3 +109,5 @@ export default memo(Task, (prev, next) => {
 
   return false;
 });
+
+
