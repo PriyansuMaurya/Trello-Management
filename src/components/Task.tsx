@@ -1,22 +1,35 @@
 import { DeleteIcon } from '@chakra-ui/icons';
-import { Box, IconButton, ScaleFade, Textarea } from '@chakra-ui/react';
+import { Box, IconButton, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 import { memo } from 'react';
 import { TaskModel } from '../utils/models';
+import { AutoResizeTextarea } from './AutoResizeTextArea';
 
 type TaskProps = {
   index: number;
   task: TaskModel;
+  onUpdate: (id: TaskModel['id'], updatedTask: TaskModel) => void;
+  onDelete: (id: TaskModel['id']) => void;
   onDropHover: (i: number, j: number) => void;
 };
 
 function Task({
   index,
   task,
+  onUpdate: handleUpdate,
   onDropHover: handleDropHover,
+  onDelete: handleDelete,
 }: TaskProps) {
 
 
+  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newTitle = e.target.value;
+    handleUpdate(task.id, { ...task, title: newTitle });
+  };
+
+  const handleDeleteClick = () => {
+    handleDelete(task.id);
+  };
 
   return (
     <ScaleFade in={true} unmountOnExit>
@@ -50,8 +63,9 @@ function Task({
           _groupHover={{
             opacity: 1,
           }}
+          onClick={handleDeleteClick}
         />
-        <Textarea
+        <AutoResizeTextarea
           value={task.title}
           fontWeight="semibold"
           cursor="inherit"
@@ -62,6 +76,7 @@ function Task({
           maxH={200}
           focusBorderColor="none"
           color="gray.700"
+          onChange={handleTitleChange}
         />
       </Box>
     </ScaleFade>
@@ -71,7 +86,9 @@ export default memo(Task, (prev, next) => {
   if (
     _.isEqual(prev.task, next.task) &&
     _.isEqual(prev.index, next.index) &&
-    prev.onDropHover === next.onDropHover
+    prev.onDelete === next.onDelete &&
+    prev.onDropHover === next.onDropHover &&
+    prev.onUpdate === next.onUpdate
   ) {
     return true;
   }
