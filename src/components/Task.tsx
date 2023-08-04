@@ -78,12 +78,11 @@ function Task({
 
       <TextArea
         style={{
-          fontWeight: "semibold",
-          cursor: "inherit",
+          fontWeight: 'semibold',
+          cursor: 'inherit',
           padding: '0px',
           margin: '0px',
           backgroundColor: 'transparent',
-
         }}
         bordered={false}
         value={task.title}
@@ -92,7 +91,6 @@ function Task({
         onChange={handleTitleChange}
       />
     </Card>
-
   );
 }
 export default memo(Task, (prev, next) => {
@@ -108,5 +106,3 @@ export default memo(Task, (prev, next) => {
 
   return false;
 });
-
-
