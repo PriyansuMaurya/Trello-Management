@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { memo, useState } from 'react';
 import { useTaskDragAndDrop } from '../hooks/useTaskDragAndDrop';
 import { TaskModel } from '../utils/models';
