@@ -12,7 +12,7 @@ function App() {
         fontSize={{ base: 'xl', sm: '2xl', md: '3xl' }}
         textAlign="center"
       >
-        Trello Management
+         Trello Task Management
       </Heading>
       <DndProvider backend={HTML5Backend}>
         <Container maxWidth="container.lg" px={4} py={10}>

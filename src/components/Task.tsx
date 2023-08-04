@@ -2,6 +2,7 @@ import { DeleteIcon } from '@chakra-ui/icons';
 import { Box, IconButton, ScaleFade } from '@chakra-ui/react';
 import _ from 'lodash';
 import { memo } from 'react';
+import { useTaskDragAndDrop } from '../hooks/useTaskDragAndDrop';
 import { TaskModel } from '../utils/models';
 import { AutoResizeTextarea } from './AutoResizeTextArea';
 
@@ -20,7 +21,10 @@ function Task({
   onDropHover: handleDropHover,
   onDelete: handleDelete,
 }: TaskProps) {
-
+  const { ref, isDragging } = useTaskDragAndDrop<HTMLDivElement>(
+    { task, index: index },
+    handleDropHover,
+  );
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newTitle = e.target.value;
@@ -34,6 +38,7 @@ function Task({
   return (
     <ScaleFade in={true} unmountOnExit>
       <Box
+        ref={ref}
         as="div"
         role="group"
         position="relative"
@@ -48,6 +53,7 @@ function Task({
         fontWeight="bold"
         userSelect="none"
         bgColor={task.color}
+        opacity={isDragging ? 0.5 : 1}
       >
         <IconButton
           position="absolute"
