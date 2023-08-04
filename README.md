@@ -5,6 +5,8 @@ Discover our Trello-inspired board with drag-and-drop simplicity! Three swimlane
 ## 🛠️ Tech Stack
 
 - React ⚛️
+- TypeScript 🦕
+- Vite 🏎️
 - npm 📦
 - Ant Design 🐜
 - Jest 🃏
@@ -12,6 +14,8 @@ Discover our Trello-inspired board with drag-and-drop simplicity! Three swimlane
 ## 📋 System Requirements
 
 - A computer running a modern web browser 🖥️🌐
+
+Certainly! Here's the updated "Getting Started" section without the note:
 
 ## 🚀 Getting Started
 
@@ -30,14 +34,14 @@ Discover our Trello-inspired board with drag-and-drop simplicity! Three swimlane
    npm install
    ```
 
-4. Start the React application:
+4. Start the development server using Vite:
    ```bash
-   npm start
+   npm run dev
    ```
 
 5. Open your web browser and go to http://localhost:3000 to see the app running.
 
-6. Make necessary changes to the code.
+6. Make necessary changes to the code. All the React components and TypeScript files are located in the `src` directory.
 
 7. Run tests using Jest:
    ```bash

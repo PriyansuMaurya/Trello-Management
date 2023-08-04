@@ -23,9 +23,9 @@ function Column({ column }: { column: ColumnType }) {
     tasks,
     addEmptyTask,
     deleteTask,
-    swapTasks
+    swapTasks,
+    updateTask,
   } = useColumnTasks(column);
-
 
   const ColumnTasks = tasks.map((task, index) => (
     <Task
@@ -33,6 +33,8 @@ function Column({ column }: { column: ColumnType }) {
       task={task}
       index={index}
       onDropHover={swapTasks}
+      onUpdate={updateTask}
+      onDelete={deleteTask}
     />
   ));
 
