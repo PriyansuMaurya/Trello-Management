@@ -1,21 +1,14 @@
-import { AddIcon } from '@chakra-ui/icons';
-import {
-  Badge,
-  Box,
-  Heading,
-  IconButton,
-  Stack,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { HiPlus } from 'react-icons/hi';
 import useColumnDrop from '../hooks/useColumnDrop';
 import useColumnTasks from '../hooks/useColumnTasks';
 import { ColumnType } from '../utils/enums';
 import Task from './Task';
+import { Button, Card, Tooltip } from 'antd';
+
 
 const ColumnColorScheme: Record<ColumnType, string> = {
   Todo: 'gray',
   'In Progress': 'blue',
-  Blocked: 'red',
   Completed: 'green',
 };
 
@@ -42,47 +35,46 @@ function Column({ column }: { column: ColumnType }) {
     />
   ));
 
+  const addButton = (<Tooltip title="Create a New Task">
+    <Button style={{
+      position: "absolute",
+      top: 10,
+      right: 10,
+      zIndex: 1,
+      border: "none",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      // opacity: 0,
+      // backgroundColor: "transparent",
+    }} icon={<HiPlus size={20} />} onClick={addEmptyTask} />
+  </Tooltip>)
+
   return (
-    <Box>
-      <Heading fontSize="md" mb={4} letterSpacing="wide">
-        <Badge
-          px={2}
-          py={1}
-          rounded="lg"
-          colorScheme={ColumnColorScheme[column]}
-        >
-          {column}
-        </Badge>
-      </Heading>
-      <IconButton
-        size="xs"
-        w="full"
-        color={useColorModeValue('gray.500', 'gray.400')}
-        bgColor={useColorModeValue('gray.100', 'gray.700')}
-        _hover={{ bgColor: useColorModeValue('gray.200', 'gray.600') }}
-        py={2}
-        variant="solid"
-        onClick={addEmptyTask}
-        colorScheme="black"
-        aria-label="add-task"
-        icon={<AddIcon />}
-      />
-      <Stack
-        ref={dropRef}
-        direction={{ base: 'row', md: 'column' }}
-        h={{ base: 300, md: 600 }}
-        p={4}
-        mt={2}
-        spacing={4}
-        bgColor={useColorModeValue('gray.50', 'gray.900')}
-        rounded="lg"
-        boxShadow="md"
-        overflow="auto"
-        opacity={isOver ? 0.85 : 1}
-      >
-        {ColumnTasks}
-      </Stack>
-    </Box>
+    <Card
+      title={column}
+      extra={
+        addButton
+      }
+      bordered={false}
+      style={{
+        marginTop: "2px",
+        paddingLeft: "4px",
+        paddingRight: "4px",
+        width: "250px",
+        maxHeight: "40rem",
+        gap: "4px",
+        backgroundColor: '#F5F5F5',
+        borderRadius: "lg",
+        boxShadow: "md",
+        overflow: "auto",
+        opacity: isOver ? "0.85" : "1",
+      }}
+      ref={dropRef}
+    >
+      {ColumnTasks}
+    </Card>
+
   );
 }
 

@@ -1,12 +1,12 @@
 import { useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { ColumnType } from '../utils/enums';
-import { pickChakraRandomColor, swap } from '../utils/helpers';
+import { pickRandomColor, swap } from '../utils/helpers';
 import { debug } from '../utils/logging';
 import { TaskModel } from '../utils/models';
 import useTaskCollection from './useTaskCollection';
 
-const MAX_TASK_PER_COLUMN = 100;
+const MAX_TASK_PER_COLUMN = 3;
 
 function useColumnTasks(column: ColumnType) {
   const [tasks, setTasks] = useTaskCollection();
@@ -26,7 +26,7 @@ function useColumnTasks(column: ColumnType) {
       const newColumnTask: TaskModel = {
         id: uuidv4(),
         title: `New ${column} task`,
-        color: pickChakraRandomColor('.300'),
+        color: pickRandomColor(),
         column,
       };
 
