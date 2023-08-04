@@ -7,14 +7,16 @@
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run-script",
-        "start"
-      ],
+      "runtimeExecutable": "vite",
+      "runtimeArgs": [],
       "skipFiles": [
         "<node_internals>/**"
-      ]
+      ],
+      "url": "http://localhost:3000",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/src/*"
+      }
+      
     }
   ]
 }
