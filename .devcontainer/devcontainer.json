@@ -5,15 +5,13 @@
   },
   "waitFor": "onCreateCommand",
   "updateContentCommand": "npm install",
-  "postCreateCommand": "",
+  "postCreateCommand": "npm install vite --save-dev",
   "postAttachCommand": {
-    "server": "npm start"
+    "server": "npm run dev -- --host"
   },
   "customizations": {
     "codespaces": {
-      "openFiles": [
-        "src/App.js"
-      ]
+      "openFiles": ["src/App.js"]
     }
   },
   "portsAttributes": {
@@ -22,5 +20,10 @@
       "onAutoForward": "openPreview"
     }
   },
-  "forwardPorts": [3000]
+  "forwardPorts": [3000],
+  "extensions": [
+    "octref.vetur",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
+  ]
 }
